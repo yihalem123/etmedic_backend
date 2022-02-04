@@ -6,17 +6,8 @@ const { User } = require('../models/User');
 const Joi  = require('joi');
 const auth = require('../middlewares/auth');
 const bcrypt =require('bcrypt');
+const upload = require('../multer/multer')
 
-router.get('/',auth, async(req,res) => {
-    
-    try {
-        const doctors = await Doctors.find({});
-        res.status(200).send(doctors);
-    } 
-    catch (error) {
-        res.status(400).send(error.message)    
-    }
-});
 router.get('/:id',auth, async(req,res) => {
     try {
         const id = req.params.id;
@@ -37,7 +28,7 @@ router.get('/:id',auth, async(req,res) => {
         res.status(400).send(error.message);    
     }
 });
-router.post('/',async (req,res) => {
+router.post('/',auth,async (req,res) => {
     try {
         const { error } = DoctorValidationSchema.validate(req.body);
         if(error){
@@ -79,6 +70,57 @@ router.post('/',async (req,res) => {
         res.status(400).send(error.message);    
     }
 
+});
+router.get("/", auth,async (req, res) => {
+    const categoryname = req.query.category;
+    const services = req.query.services;
+    try {
+      let doctors;
+      if (categoryname) {
+        doctors = await Doctors.find({ category:categoryname });
+      } else if (services) {
+        doctors = await Doctors.find({
+          services: {
+            $in: [services],
+          },
+        });
+      } else {
+        doctors = await Doctors.find();
+      }
+      res.status(200).json(doctors);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
+router.post('/addProfilePic/:id',auth,upload.single('profile'), async(req,res) => {
+    try {
+        const id = req.params.id;
+        if(mongoose.Types.ObjectId.isValid(id)){
+            const user = await Doctors.findById(id);
+            if(user){
+                if(req.file){
+                    const userWithPp = await Doctors.findByIdAndUpdate(id, {
+
+                        
+                        profile : req.file.path
+                    }, { new : true});
+                    res.status(200).send(userWithPp);
+                }
+                else {
+                    throw new Error('Picture To Upload Is Not Found');
+                }
+            }
+            else {
+                throw new Error('User not found with given ID')
+            }
+        }
+        else {
+            throw new Error('Invalid User Identifier');
+        }
+    } 
+    catch (error) {
+        res.status(400).send(error.message)    
+    }
 });
 
 module.exports = router;
