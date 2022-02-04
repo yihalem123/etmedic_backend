@@ -1,0 +1,20 @@
+POST http://localhost:4000/api/doctors
+Content-Type: : application/json
+
+{
+    
+  "fullName":"Darren Elder",
+  "email":"darren@gmail.com",
+  "phoneNumber":"+251933324728",
+  "password":"darrenelder",
+  "currentWork":"Amin General Hospital",
+  "category":"Dentist",
+  "about":"i AM DARREN. i AM PROFICIENT DENTIST WITH EXPEREINCE OF MORETHAN 5 YEARS ON TOOTH SPECIALITY. IO WOULD CONSULT YOU WELL ON.",
+  "education":["BAHIRDAR UNIVRSITY GENERAL MEDICINE"],
+  "experience":["Glowing Smiles Family Dental Clinic,2010 - Present (5 years)","Dream Smile Dental Practice, 2005 - 2007 (2 years)"],
+  "certifications":["Humanitarian Award"],
+  "services":["Tooth cleaning","Root Canal Therapy","Implants","Surgical Extractions"],
+  "location":"Addis Ababa,Bole,wollo Sefer",
+  "businessHours":["2:00-4:00","8:00-0:00"],
+  "Pricing":"300Birr"
+}
