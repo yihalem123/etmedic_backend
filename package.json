@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "run": "node index.js",
+    "test": "standard"
+},
   "dependencies": {
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.1",
