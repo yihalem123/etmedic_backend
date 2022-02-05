@@ -7,7 +7,7 @@ router.post('/signup',async (req,res)=>{
     const { error } = userValidationSchema.validate(req.body);
     if(error){
         console.log(error)
-       return res.status(401).json(error.details[0].messager);
+       return res.status(401).json(error.message);
     }
     //check if the user already exists
     let user =await User.findOne({email:req.body.email});
