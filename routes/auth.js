@@ -9,6 +9,7 @@ router.post('/', async (req, res) => {
     // First Validate The HTTP Request
     const { error } = authRequestValidate.validate(req.body);
     if (error) {
+        //throw new Error(error.details[0].message);
         return res.status(400).send(error.message);
     }
 

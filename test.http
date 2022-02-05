@@ -1,12 +1,11 @@
 POST http://localhost:4000/api/users/signup
 Content-Type:Content-Type
 
-
 {
-    "fullName":"yihu",
-    "email":"yihu@yihalem.com",
-  "phoneNumber":"+251933327767",
-    "password":"yihuuhiy"
+    "fullName":"sammil",
+    "email":"sami@yialem.com",
+  "phoneNumber":"+251933324767",
+    "password":"samisami"
 }
 
 ### 
