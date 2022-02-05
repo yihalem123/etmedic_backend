@@ -85,7 +85,7 @@ router.get("/",auth,async (req, res) => {
           },
         });
       } else {
-        doctors = await Doctors.find();
+        doctors = await Doctors.find({is_active:true});
       }
       res.status(200).json(doctors);
     } catch (err) {
@@ -122,5 +122,26 @@ router.post('/addProfilePic/:id',auth,upload.single('profile'), async(req,res) =
         res.status(400).send(error.message)    
     }
 });
+router.post('/approve/:id', auth,async (req,res)=>{
+    try {
+        const id = req.params.id;
+        if(mongoose.Types.ObjectId.isValid(id)){
+            const user = await Doctors.findById(id);
+            if(user){
+                const doctortoApproved = await Doctors.findByIdAndUpdate(id, {
+
+                        
+                    is_active : true
+                }, { new : true});
+                res.status(200).send(doctortoApproved);
+            }else{res.status(404).send('doctor not found with given id')}
+
+            }else{res.status(400).send('invalid user identifier')}}
+        
+    catch(error) {
+        res.status(400).json(error)
+    }
+});
+
 
 module.exports = router;
