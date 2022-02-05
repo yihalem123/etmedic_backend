@@ -27,7 +27,7 @@ app.use('/api/users', users);
 app.use('/api/auth',auth)
 app.use('/api/doctors',doctors)
 app.use('/api/categories',category);
-const port = process.env.PORT || 4000;
+const port = process.env.PORT ;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
  
  
