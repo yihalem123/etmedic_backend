@@ -1,8 +1,9 @@
 const { User , userValidationSchema } = require('../models/User');
 const router  =require('express').Router();
-const fs = require('fs');s
+const fs = require('fs');
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
+const auth = reuire('../middlewares/auth');
 
 router.post('/signup',async (req,res)=>{
     const { error } = userValidationSchema.validate(req.body);
@@ -76,7 +77,7 @@ router.get('/:id' ,async(req,res) => {
         res.status(400).send(error.message);        
     }
 });
-router.put('/:id', [auth,agentOrUser], upload.single('profile'),async(req,res) => {
+router.put('/:id', auth, upload.single('profile'),async(req,res) => {
     
     try {
         const { error } = userValidationSchema.validate(req.body);
