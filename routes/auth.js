@@ -9,7 +9,7 @@ router.post('/', async (req, res) => {
     // First Validate The HTTP Request
     const { error } = authRequestValidate.validate(req.body);
     if (error) {
-        return res.status(400).send(error.details[0].message);
+        return res.status(400).send(error.message);
     }
 
     //  Now find the user by their email address
@@ -28,11 +28,11 @@ router.post('/', async (req, res) => {
         return res.status(400).send('Incorrect email or password.');
     }
     const token = user.generateAuthToken();
-
-    res.json(token);
+    
+    res.header('x-auth-token',token).json(user);
 });
 const authRequestValidate = Joi.object({
-    email : Joi.string().min(10).max(100),
+    email : Joi.string().min(8).max(100),
     password : Joi.string().min(8).max(255)
 });
 
