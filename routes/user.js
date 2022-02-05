@@ -2,6 +2,7 @@ const { User , userValidationSchema } = require('../models/User');
 const router  =require('express').Router();
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
+
 router.post('/signup',async (req,res)=>{
     const { error } = userValidationSchema.validate(req.body);
     if(error){
@@ -27,7 +28,7 @@ router.post('/signup',async (req,res)=>{
         res.header('x-auth-token',token).send(hiddenPassword);
     }
 });
-router.get('/', async (req,res)=>{
+router.get('/',async (req,res)=>{
   try{
       const users = await User.find();
       res.status(200).json(users);
