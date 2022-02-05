@@ -3,7 +3,8 @@ const router  =require('express').Router();
 const fs = require('fs');
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
-const auth = reuire('../middlewares/auth');
+const auth = require('../middlewares/auth');
+const upload = require('../multer/multer')
 
 router.post('/signup',async (req,res)=>{
     const { error } = userValidationSchema.validate(req.body);
