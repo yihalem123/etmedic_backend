@@ -29,7 +29,7 @@ router.post('/', async (req, res) => {
     }
     const token = user.generateAuthToken();
 
-    res.send(token);
+    res.json(token);
 });
 const authRequestValidate = Joi.object({
     email : Joi.string().min(10).max(100),
