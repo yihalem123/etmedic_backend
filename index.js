@@ -18,7 +18,7 @@ app.use((req,res,next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS,PUT,PATCH,DELETE');
     next();
 });
-const uri = ""
+const uri = "mongodb+srv://etmedic:etmedic@cluster0.7papf.mongodb.net/myFirstDatabase?retryWrites=true&w=majorit"
 mongoose.connect(uri)
     .then(() => console.log('Now connected to MongoDB!'))
     .catch(err => console.error('Something went wrong', err));

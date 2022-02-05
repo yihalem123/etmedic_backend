@@ -71,7 +71,7 @@ router.post('/',auth,async (req,res) => {
     }
 
 });
-router.get("/",async (req, res) => {
+router.get("/",auth,async (req, res) => {
     const categoryname = req.query.category;
     const services = req.query.services;
     try {
