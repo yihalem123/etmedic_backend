@@ -8,6 +8,9 @@ const category = require("./routes/categories");
 const conversation = require('./routes/conversations');
 const express = require('express');
 const bcrypt = require('bcrypt');
+
+const dotenv = require('dotenv');
+dotenv.config();
 const app = express();
 
 app.use(express.json());
@@ -18,8 +21,11 @@ app.use((req,res,next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS,PUT,PATCH,DELETE');
     next();
 });
-const uri = "mongodb+srv://etmedic:etmedic@cluster0.7papf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-mongoose.connect(uri)
+const uri =process.env.mongo_uri;
+mongoose.connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
     .then(() => console.log('Now connected to MongoDB!'))
     .catch(err => console.error('Something went wrong', err));
 
